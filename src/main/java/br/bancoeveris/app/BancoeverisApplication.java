@@ -1,13 +1,13 @@
-package br.bancoeveris.app;
+package br.bancoEveris.app;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class BancoeverisApplication {
+public class BancoEverisApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(BancoeverisApplication.class, args);
+		SpringApplication.run(BancoEverisApplication.class, args);
 	}
 
 }

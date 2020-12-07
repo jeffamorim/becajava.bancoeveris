@@ -1,41 +1,22 @@
-package br.bancoeveris.app.service;
+package br.bancoEveris.app.service;
 
-import java.util.List;
+import br.bancoEveris.app.model.BaseResponse;
+import br.bancoEveris.app.request.ContaRequest;
+import br.bancoEveris.app.response.ContaResponse;
+import br.bancoEveris.app.response.ListContaResponse;
 
-import org.springframework.stereotype.Service;
+public interface ContaService {
 
-import br.bancoeveris.app.model.Conta;
-import br.bancoeveris.app.repository.ContaRepository;
-import br.bancoeveris.app.response.ContaResponse;
+	public BaseResponse inserir();
 
-@Service
-public class ContaService {
-	
-	final ContaRepository _repository;
-	final OperacaoService _operacaoService;
-	
-	public ContaService(ContaRepository repository, OperacaoService operacaoService)	{
-		_repository = repository;
-		_operacaoService = operacaoService;
-	}
-	
-	public ContaResponse Saldo(String hash) {
-		ContaResponse response = new ContaResponse();
-		Conta conta = _repository.findByHash(hash);
-		
-		if (conta == null) {
-			response.setStatusCode(404);
-			response.setMessage("Conta não encontrada.");
-			return response;					
-		}		
+	public ContaResponse  obter(Long id);
 
-		response.setStatusCode(200);
-		response.setMessage("Conta encontrada");
-		response.setHash(conta.getHash());
-		response.setId(conta.getId());
-		response.setSaldo(_operacaoService.Saldo(conta.getId()));
-		
-		return response;		
-	}
+	public ListContaResponse listar();
+
+	public BaseResponse editar(Long id, ContaRequest contaRequest);
+
+	public BaseResponse deletar(Long id);
+
+	public ContaResponse saldo(String hash);
 
 }

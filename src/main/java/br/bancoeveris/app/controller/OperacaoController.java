@@ -1,53 +1,65 @@
-package br.bancoeveris.app.controller;
+package br.bancoEveris.app.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.bancoeveris.app.request.*;
-import br.bancoeveris.app.response.*;
-import br.bancoeveris.app.service.OperacaoService;
+import br.bancoEveris.app.model.BaseResponse;
+
+import br.bancoEveris.app.request.OperacaoRequest;
+
+import br.bancoEveris.app.request.TransferenciaRequest;
+import br.bancoEveris.app.service.OperacaoService;
+import br.bancoEveris.app.service.imp.OperacaoServiceImp;
 
 @RestController
-@RequestMapping("/operacao")
-public class OperacaoController {
-	
-	final OperacaoService _service;
-	
-	public OperacaoController(OperacaoService service) {
+@RequestMapping("/operacoes")
+public class OperacaoController extends BaseController {
+
+	@Autowired
+	private OperacaoService _service;
+
+	public OperacaoController(OperacaoServiceImp service) {
 		_service = service;
 	}
-	
+
 	@PostMapping(path = "/deposito")
-	public ResponseEntity deposito(@RequestBody DepositoRequest request) {
+	public ResponseEntity<?> deposito(@RequestBody OperacaoRequest request) {
 		try {
-			BaseResponse response = _service.inserirDeposito(request);
-			return ResponseEntity.status(response.getStatusCode()).body(response);
+
+			BaseResponse base = _service.deposito(request);
+			return ResponseEntity.status(base.statusCode).body(base);
+
 		} catch (Exception e) {
-			return ResponseEntity.status(500).body("Erro genérico");
-		}		
+			return ResponseEntity.status(errorBase.statusCode).body(errorBase);
+		}
 	}
-	
+
 	@PostMapping(path = "/saque")
-	public ResponseEntity saque(@RequestBody SaqueRequest request) {
+	public ResponseEntity<?> saque(@RequestBody OperacaoRequest request) {
 		try {
-			BaseResponse response = _service.inserirSaque(request);
-			return ResponseEntity.status(response.getStatusCode()).body(response);
+
+			BaseResponse base = _service.saque(request);
+			return ResponseEntity.status(base.statusCode).body(base);
+
 		} catch (Exception e) {
-			return ResponseEntity.status(500).body("Erro genérico");
-		}		
+			return ResponseEntity.status(errorBase.statusCode).body(errorBase);
+		}
+
 	}
 
 	@PostMapping(path = "/transferencia")
-	public ResponseEntity transferencia(@RequestBody TransferenciaRequest request) {
+	public ResponseEntity<?> transferencia(@RequestBody TransferenciaRequest request) {
 		try {
-			BaseResponse response = _service.inserirTransferencia(request);
-			return ResponseEntity.status(response.getStatusCode()).body(response);
-		} catch (Exception e) {
-			return ResponseEntity.status(500).body("Erro genérico");
-		}		
-	}
 
+			BaseResponse base = _service.transferencia(request);
+			return ResponseEntity.status(base.statusCode).body(base);
+
+		} catch (Exception e) {
+			return ResponseEntity.status(errorBase.statusCode).body(errorBase);
+		}
+	}
 }

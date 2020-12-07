@@ -1,4 +1,4 @@
-package br.bancoeveris.app.model;
+package br.bancoEveris.app.model;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -8,22 +8,23 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 @Entity
-public class Operacao {
-	
-	
+public class Operacao extends BaseResponse {
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;	
+	private Long id;
+
 	private String tipo;
-	private double valor;
-	
+
 	@ManyToOne
-    @JoinColumn(name ="contaOrigemId")
+	@JoinColumn(name = "idOrigem")
 	private Conta contaOrigem;
 
 	@ManyToOne
-    @JoinColumn(name ="contaDestinoId")
+	@JoinColumn(name = "idDestino")
 	private Conta contaDestino;
+
+	private Double Valor;
 
 	public Long getId() {
 		return id;
@@ -39,14 +40,6 @@ public class Operacao {
 
 	public void setTipo(String tipo) {
 		this.tipo = tipo;
-	}
-
-	public double getValor() {
-		return valor;
-	}
-
-	public void setValor(double valor) {
-		this.valor = valor;
 	}
 
 	public Conta getContaOrigem() {
@@ -65,7 +58,12 @@ public class Operacao {
 		this.contaDestino = contaDestino;
 	}
 
-	
-	
+	public Double getValor() {
+		return Valor;
+	}
+
+	public void setValor(Double valor) {
+		Valor = valor;
+	}
 
 }

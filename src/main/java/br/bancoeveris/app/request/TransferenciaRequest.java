@@ -1,11 +1,17 @@
-package br.bancoeveris.app.request;
+package br.bancoEveris.app.request;
 
 public class TransferenciaRequest {
+
 	
+	private Double valor;
 	private String hashOrigem;
 	private String hashDestino;
-	private double valor;
-	
+	public Double getValor() {
+		return valor;
+	}
+	public void setValor(Double valor) {
+		this.valor = valor;
+	}
 	public String getHashOrigem() {
 		return hashOrigem;
 	}
@@ -18,12 +24,6 @@ public class TransferenciaRequest {
 	public void setHashDestino(String hashDestino) {
 		this.hashDestino = hashDestino;
 	}
-	public double getValor() {
-		return valor;
-	}
-	public void setValor(double valor) {
-		this.valor = valor;
-	}
 	
-
+	
 }
